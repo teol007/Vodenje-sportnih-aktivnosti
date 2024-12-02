@@ -27,3 +27,6 @@ dist-ssr
 database.sqlite
 
 .env
+build
+.idea
+coverage

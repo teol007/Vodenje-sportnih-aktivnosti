@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-
-import db from "../database";
+import db = require("../database")
 
 export const usersController = {
     add: (req: Request, res: Response) => {
@@ -56,7 +55,7 @@ export const usersController = {
                 if (this.changes === 0) {
                     return res.status(404).json({ error: 'Uporabnik ni najden' }); // Če ID ne obstaja
                 }
-                res.status(200).json({ message: 'Uporabnik posodobljen!', id }); // Uspešna posodobitev
+                res.status(200).json({ message: 'Uporabnik posodobljen!', id: Number(id) }); // Uspešna posodobitev
             }
         );
     },

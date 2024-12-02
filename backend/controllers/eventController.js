@@ -78,12 +78,12 @@ exports.updateEvent = (req, res) => {
                             `INSERT INTO notifications (user_id, message) VALUES (?, ?)`,
                             [row.user_id, message],
                             (err) => {
-                                if (err) console.log("Napaka pri ustvarjanju obvestila:", err.message);
+                                if (err) console.error("Napaka pri ustvarjanju obvestila:", err.message);
                             }
                         );
                     });
 
-                    res.status(200).json({ message: 'Dogodek posodobljen in obvestila poslata!', id });
+                    res.status(200).json({ message: 'Dogodek posodobljen in obvestila poslana', id: Number(id) });
                 }
             );
         }
@@ -112,9 +112,6 @@ exports.getUserNotifications = (req, res) => {
 exports.registerForEvent = (req, res) => {
     const { eventId, userId } = req.body;
 
-    console.log('Received eventId:', eventId); // Verify if this logs
-    console.log('Received userId:', userId);   // Verify if this logs
-
     db.run(
         `INSERT INTO Registrations (event_id, user_id) VALUES (?, ?)`,
         [eventId, userId],
@@ -141,7 +138,7 @@ exports.deregisterFromEvent = (req, res) => {
                 return res.status(500).json({ error: err.message });
             }
             // Respond with success message
-            res.json({ message: 'Odjava uspešna' });
+            res.status(200).json({ message: 'Odjava uspešna' });
         }
     );
 };
