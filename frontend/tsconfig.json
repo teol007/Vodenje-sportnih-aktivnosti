@@ -19,7 +19,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "types": ["jest"],  // Ensure Jest types are included
+    //"types": ["jest"],  // Ensure Jest types are included
     "declarationMap": true,
     "outDir": "./dist"
   },
