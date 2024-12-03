@@ -35,7 +35,7 @@ export default function Register() {
         <div className="container mt-4">
             <h2 className="mb-4">Registracija</h2>
             <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formUsername">
+                <Form.Group controlId="username">
                     <Form.Label>Uporabniško Ime</Form.Label>
                     <Form.Control
                         type="text"
@@ -46,7 +46,7 @@ export default function Register() {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="formPassword">
+                <Form.Group controlId="password">
                     <Form.Label>Geslo</Form.Label>
                     <Form.Control
                         type="password"
@@ -57,7 +57,7 @@ export default function Register() {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="formFullName">
+                <Form.Group controlId="fullName">
                     <Form.Label>Polno Ime</Form.Label>
                     <Form.Control
                         type="text"
@@ -68,7 +68,7 @@ export default function Register() {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="formRole">
+                <Form.Group controlId="role">
                     <Form.Label>Vloga</Form.Label>
                     <Form.Control
                         as="select"
