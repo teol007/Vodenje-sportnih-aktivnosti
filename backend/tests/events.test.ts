@@ -13,10 +13,10 @@ afterAll((done) => { //Close the server after all tests
 });
 
 const newEvent1 = {name: "Tek", description: "Tek na 100m.", date: "2024-12-05T14:15:00.000Z", location: "Ljubljana", organizer: "Viktor Felc"}
-const newEvent2 = {name: "Ples", description: "Slavnostni ples.", date: "2024-12-15T18:00:00.000Z", location: "Maribor", organizer: "Viktor Felc"}
-
 const event1 = {id: 1, ...newEvent1}
-const event2 = {id: 2, ...newEvent2}
+
+const newRating1 = {date: "2024-12-06T18:28:23.000Z", rating: 5, comment: "Zelo zabavno.", eventId: 1}
+const rating1 = {id: 1, ...newRating1}
 
 describe("Events API" , () => { // Tests in a describe block run sequentially. Tests in different describe blocks run concurently
     it("Should return all events as empty array", async () => {
@@ -64,6 +64,30 @@ describe("Events API" , () => { // Tests in a describe block run sequentially. T
         const userResponse = await request(app).post("/api/events/deregister/1").send({userId: 1});
         expect(userResponse.status).toBe(200);
         expect(userResponse.body).toEqual({message: 'Odjava uspešna'})
+    });
+
+    it("Should insert new rating", async () => {
+        const response = await request(app).post("/api/events/1/ratings").send(newRating1);
+        expect(response.status).toBe(201);
+        expect(response.body).toEqual({id: 1})
+    });
+
+    it("Should return all ratings of event with id '1'", async () => {
+        const response = await request(app).get("/api/events/1/ratings");
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual([rating1])
+    });
+
+    it("Should update rating with id '1'", async () => {
+        const response = await request(app).put('/api/events/ratings/1').send({...rating1, comment: "It was awesome."});
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual({ message: 'Ocena posodobljena', id: 1 });
+    });
+
+    it("Should delete rating with id '1'", async () => {
+        const response = await request(app).delete('/api/events/ratings/1');
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual({ message: "Ocena uspešno izbrisana" });
     });
     
     it("Should delete event with id '1'", async () => {

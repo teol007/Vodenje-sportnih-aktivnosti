@@ -76,6 +76,22 @@ function initializeTables() {
       console.error("Error creating 'notifications' table:", err.message);
     }
   });
+
+  // Create the 'ratings' table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS ratings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      date TEXT,
+      rating INTEGER,
+      comment TEXT DEFAULT "",
+      eventId INTEGER,
+      FOREIGN KEY (eventId) REFERENCES events(id)
+    );
+  `, (err) => {
+    if (err) {
+      console.error("Error creating 'ratings' table:", err.message);
+    }
+  });
 }
 
 // Export the database connection

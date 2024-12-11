@@ -142,5 +142,3 @@ exports.deregisterFromEvent = (req, res) => {
         }
     );
 };
-
-
