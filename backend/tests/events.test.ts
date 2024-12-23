@@ -18,6 +18,9 @@ const event1 = {id: 1, ...newEvent1}
 const newRating1 = {date: "2024-12-06T18:28:23.000Z", rating: 5, comment: "Zelo zabavno.", eventId: 1}
 const rating1 = {id: 1, ...newRating1}
 
+const newEquipment1 = {name: "Stol", description: "Udoben stol primeren za prireditve, predstave", cost: 10.50, pieces: 50, eventId: 1}
+const equipment1 = {id: 1, ...newEquipment1}
+
 describe("Events API" , () => { // Tests in a describe block run sequentially. Tests in different describe blocks run concurently
     it("Should return all events as empty array", async () => {
         const response = await request(app).get("/api/events");
@@ -88,6 +91,36 @@ describe("Events API" , () => { // Tests in a describe block run sequentially. T
         const response = await request(app).delete('/api/events/ratings/1');
         expect(response.status).toBe(200);
         expect(response.body).toEqual({ message: "Ocena uspešno izbrisana" });
+    });
+    
+    it("Should insert new equipment to event with id '1'", async () => {
+        const response = await request(app).post("/api/events/1/equipment").send(newEquipment1);
+        expect(response.status).toBe(201);
+        expect(response.body).toEqual({id: 1})
+    });
+
+    it("Should return all equipment of event with id '1'", async () => {
+        const response = await request(app).get("/api/events/1/equipment");
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual([equipment1])
+    });
+
+    it("Should return equipment with id '1'", async () => {
+        const response = await request(app).get("/api/events/equipment/1");
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual(equipment1)
+    });
+
+    it("Should update equipment with id '1'", async () => {
+        const response = await request(app).put('/api/events/equipment/1').send({...equipment1, comment: "It was awesome."});
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual({ message: 'Oprema posodobljena', id: 1 });
+    });
+
+    it("Should delete equipment with id '1'", async () => {
+        const response = await request(app).delete('/api/events/equipment/1');
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual({ message: "Oprema uspešno izbrisana" });
     });
     
     it("Should delete event with id '1'", async () => {

@@ -32,7 +32,7 @@ exports.getAllRatingsOfEvent = (req, res) => {
 exports.deleteRating = (req, res) => {
     const { ratingId } = req.params;
     db.run(
-        `DELETE FROM events WHERE id = ?`,
+        `DELETE FROM ratings WHERE id = ?`,
         [ratingId],
         function (err) {
             if (err) {

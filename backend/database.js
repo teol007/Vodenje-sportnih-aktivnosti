@@ -92,6 +92,23 @@ function initializeTables() {
       console.error("Error creating 'ratings' table:", err.message);
     }
   });
+
+  // Create the 'equipment' table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS equipment (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      description TEXT,
+      cost REAL,
+      pieces INTEGER,
+      eventId INTEGER,
+      FOREIGN KEY (eventId) REFERENCES events(id)
+    );
+  `, (err) => {
+    if (err) {
+      console.error("Error creating 'equipment' table:", err.message);
+    }
+  });
 }
 
 // Export the database connection
