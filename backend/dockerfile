@@ -1,0 +1,30 @@
+#STAGE 1: Build the application
+FROM node:alpine AS build
+
+#Set working directory
+WORKDIR /app
+
+#Install dependencies
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+RUN npm run build
+
+#STAGE 2: Run the application
+FROM node:alpine
+
+WORKDIR /app
+
+# Copy only the built files and dependencies
+COPY --from=build /app/build ./build
+COPY package.json package-lock.json ./
+
+RUN npm ci
+
+#Port
+EXPOSE 1234
+
+# Start the server
+CMD ["node", "build/app.js"]
