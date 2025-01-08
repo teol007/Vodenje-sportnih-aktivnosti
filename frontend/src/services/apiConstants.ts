@@ -1,1 +1,1 @@
-export const API_URL = import.meta.env.API_URL || "http://localhost:1234/api";
+export const API_URL = import.meta.env.BACKEND_API_URL || "http://localhost:1234/api";

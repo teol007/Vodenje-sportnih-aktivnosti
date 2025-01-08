@@ -36,6 +36,11 @@ jobs:
         cd frontend
         npm install
 
+    - name: Create .env
+      # Set BACKEND_API_URL in .env
+      run: |
+        echo "BACKEND_API_URL=${{vars.BACKEND_API_URL}}" >> frontend/.env
+
     - name: Build application
       run: |
         cd frontend
