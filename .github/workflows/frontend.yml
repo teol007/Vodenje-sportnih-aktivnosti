@@ -40,6 +40,7 @@ jobs:
       # Set BACKEND_API_URL in .env
       run: |
         echo "BACKEND_API_URL=${{vars.BACKEND_API_URL}}" >> frontend/.env
+        cat frontend/.env
 
     - name: Build application
       run: |
