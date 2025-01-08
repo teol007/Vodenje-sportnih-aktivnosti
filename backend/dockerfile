@@ -21,7 +21,8 @@ WORKDIR /app
 COPY --from=build /app/build ./build
 COPY package.json package-lock.json ./
 
-RUN npm ci
+#Do not also install development dependencies
+RUN npm ci --only=production
 
 #Port
 EXPOSE 1234
