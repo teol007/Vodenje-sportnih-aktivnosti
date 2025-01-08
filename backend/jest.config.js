@@ -15,4 +15,5 @@ module.exports = {
     "**/tests/**/*.test.ts",
     "**/__tests__/**/*.test.ts"
   ],
+  coverageReporters: ['lcov', 'text-summary'],
 };
