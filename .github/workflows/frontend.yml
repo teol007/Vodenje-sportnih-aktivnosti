@@ -152,6 +152,7 @@ jobs:
     - name: Upload coverage report
       run: |
         cp frontend/coverage/lcov.info .
+        
     - name: Run SonarCloud analysis
       env:
         SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}

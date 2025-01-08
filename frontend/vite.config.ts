@@ -5,7 +5,8 @@ export default defineConfig({
   plugins: [react()] as UserConfig["plugins"],
   test: {
     coverage: {
-      provider: 'v8'
+      provider: 'v8',
+      reporter: ['text', 'lcov'],
     },
     globals: true,
     environment: 'happy-dom',
