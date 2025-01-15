@@ -174,28 +174,6 @@ jobs:
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.javascript.lcov.reportPaths=./lcov.info \
   
-  datadog-metrics:
-    needs: [test-backend, dockerize-and-push-dev]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send Workflow Metrics to DataDog
-        env:
-          DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
-        run: |
-          curl -X POST \
-            "https://api.datadoghq.com/api/v1/series?api_key=${DATADOG_API_KEY}" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "series" : [
-                {
-                  "metric": "github.workflow.duration",
-                  "points": [[`date +%s`, $((SECONDS))]],
-                  "type": "gauge",
-                  "tags": ["workflow:backend-ci", "env:production", "branch:${{ github.ref_name }}"]
-                }
-              ]
-            }'
-  
   dockerize-and-push-prod:
     needs: [test-backend, sonarcloud-analysis]
     runs-on: ubuntu-latest
